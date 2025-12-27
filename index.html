@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    background: black;
+    overflow-x: hidden;
+}
+
+/* ================= BACKGROUND LAYERS ================= */
+
+/* Base glow */
+.background {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255,140,0,0.22), transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(255,140,0,0.18), transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255,140,0,0.08), transparent 50%),
+        linear-gradient(135deg, #000, #111);
+    animation: pulse 8s infinite alternate;
+    z-index: -7;
+}
+
+/* Hex pattern */
+.hex-pattern {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(30deg, rgba(255,140,0,0.08) 12%, transparent 12.5%),
+        linear-gradient(150deg, rgba(255,140,0,0.08) 12%, transparent 12.5%),
+        linear-gradient(210deg, rgba(255,140,0,0.08) 12%, transparent 12.5%),
+        linear-gradient(330deg, rgba(255,140,0,0.08) 12%, transparent 12.5%);
+    background-size: 120px 70px;
+    opacity: 0.35;
+    z-index: -6;
+}
+
+/* Grid */
+.grid {
+    position: fixed;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,140,0,0.06),
+            rgba(255,140,0,0.06) 1px,
+            transparent 1px,
+            transparent 60px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,140,0,0.06),
+            rgba(255,140,0,0.06) 1px,
+            transparent 1px,
+            transparent 60px
+        );
+    z-index: -5;
+}
+
+/* Code rain */
+.code-rain {
+    position: fixed;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,140,0,0.12),
+            rgba(255,140,0,0.12) 1px,
+            transparent 1px,
+            transparent 150px
+        );
+    animation: rainMove 9s linear infinite;
+    opacity: 0.35;
+    z-index: -4;
+}
+
+/* Floating data lines */
+.data-lines {
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(transparent 95%, rgba(255,140,0,0.25) 100%);
+    background-size: 100% 120px;
+    animation: dataMove 6s linear infinite;
+    opacity: 0.25;
+    z-index: -3;
+}
+
+/* Radar sweep */
+.radar {
+    position: fixed;
+    inset: 0;
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            rgba(255,140,0,0.2),
+            transparent 60%
+        );
+    animation: radarSpin 10s linear infinite;
+    opacity: 0.3;
+    z-index: -2;
+}
+
+/* Scanline */
+.scanline {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, orange, transparent);
+    animation: scan 6s linear infinite;
+    z-index: -1;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes scan {
+    from { top: 0; }
+    to { top: 100%; }
+}
+
+@keyframes rainMove {
+    from { background-position-y: 0; }
+    to { background-position-y: 1000px; }
+}
+
+@keyframes radarSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes dataMove {
+    from { background-position-y: 0; }
+    to { background-position-y: 600px; }
+}
+
+@keyframes pulse {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.25); }
+}
+
+/* ================= FORM ================= */
+
+.form-container {
+    width: 420px;
+    max-width: 92%;
+    margin: 90px auto;
+    padding: 32px;
+    background: rgba(0,0,0,0.88);
+    border-radius: 20px;
+    border: 2px solid #ff8c00;
+    box-shadow:
+        0 0 50px rgba(255,140,0,0.65),
+        inset 0 0 35px rgba(255,140,0,0.3);
+    position: relative;
+}
+
+/* HUD corners */
+.form-container::before,
+.form-container::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #ff8c00;
+}
+
+.form-container::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.form-container::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+h2 {
+    text-align: center;
+    color: #ff8c00;
+    letter-spacing: 2px;
+    margin-bottom: 26px;
+}
+
+.section-title {
+    color: #ffa733;
+    font-size: 13px;
+    margin: 18px 0 8px;
+    text-transform: uppercase;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #0c0c0c;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: white;
+}
+
+input:focus {
+    border-color: #ff8c00;
+    box-shadow: 0 0 14px rgba(255,140,0,0.8);
+    outline: none;
+}
+
+button {
+    width: 100%;
+    margin-top: 26px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ff8c00, #ffb347);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0 0 40px rgba(255,140,0,0.95);
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background layers -->
+<div class="background"></div>
+<div class="hex-pattern"></div>
+<div class="grid"></div>
+<div class="code-rain"></div>
+<div class="data-lines"></div>
+<div class="radar"></div>
+<div class="scanline"></div>
+
+<!-- Form -->
+<form class="form-container">
+    <h2>REGISTRATION</h2>
+
+    <div class="section-title">Team Details</div>
+    <input type="text" placeholder="Team Name">
+
+    <div class="section-title">Team Leader</div>
+    <input type="text" placeholder="Leader Name">
+    <input type="tel" placeholder="Leader Phone Number">
+    <input type="email" placeholder="Leader Email">
+
+    <div class="section-title">Member 1</div>
+    <input type="text" placeholder="Member 1 Name">
+    <input type="text" placeholder="Registration Number">
+    <input type="tel" placeholder="Phone Number">
+
+    <div class="section-title">Member 2</div>
+    <input type="text" placeholder="Member 2 Name">
+    <input type="text" placeholder="Registration Number">
+    <input type="tel" placeholder="Phone Number">
+
+    <div class="section-title">Member 3</div>
+    <input type="text" placeholder="Member 3 Name">
+    <input type="text" placeholder="Registration Number">
+    <input type="tel" placeholder="Phone Number">
+
+    <button type="submit">SUBMIT</button>
+</form>
+
+</body>
+</html>
